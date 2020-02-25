@@ -1,0 +1,523 @@
+ PantallaCarga c;
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+void setup(){
+  size(600,600);
+  c = new PantallaCarga();
+}
+
+void draw(){   
+    c.Cambio();
+}
+
+void keyReleased(){ //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  if (c.p == 1)
+  {
+    if(key == ENTER)
+      c.turnoSe = 2;
+  }
+}
+
+//clases-----------------------------------------------------------------------------
+    class PantallaCarga{
+      int p=0;
+      int jugador1 = 0, jugador2 = 0;
+      int seleccion = 1;
+      int VidaJ1 = 100, VidaJ2 = 100;
+      int AJ1, AJ2 ,HJ1 ,HJ2;
+      int turno = 1;
+      int turnoSe = 1;
+    
+      PantallaCarga(){}
+      
+      void Cambio(){
+        if (p == 0)
+        pan1();
+        
+         if (p == 1)
+        pan2();
+        
+        if (p == 2)
+        pan3();
+        
+        if (p == 3)
+        pan4();
+        
+        
+       }
+      //----------------------------------------------------------------------------------------------------------------------
+    void pan1(){
+   //cielo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    fill(#000AB4);
+    rect(0, 0, width, height);
+     fill(255);
+   //pasto<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    fill(#5800B2);
+    rect(0, 200, width,200);
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //Nombre del juego
+    fill(0);
+        textSize(100);
+    textAlign(CENTER);
+    text("ARROKOTH",300, 150);
+    
+     textSize(25);
+    textAlign(CENTER);
+    text("PRESS 1",450, 390);
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      if(keyPressed)
+      if(key=='1')
+      p++;
+      }
+      //-------------------------------------------------------------------------------------------------------------
+      void pan2(){
+      //seleccion de personajes
+       background(#FFFFFF);
+       noStroke();
+          //PLAYER 1
+  fill(#19E000);
+  rect(CENTER,-CENTER,100,100,0,20,0,0);
+  rect(CENTER,CENTER,100,50,0,20,0,0);
+  fill(0);
+  textSize(10);
+  text("Player 1",50,120);
+ 
+  //PLAYER 2
+  fill(#F000D4);
+  rect(0,200,100,100,0,20,20,0);
+  fill(0);
+  textSize(10);
+  text("Player 2",-50,120);
+  
+  //PLAYER 3
+  fill(#D60000);
+  rect(500,0,100,100,0,20,20,20);
+  fill(0);
+  textSize(10);
+  text("Player 3",50,120);
+  
+  //PLAYER 4
+  fill(#006CFF);
+  rect(500,200,100,100,20,20,20,20);
+  fill(0);
+  textSize(10);
+  text("Player 4",550,220);
+  
+  //PLAYER 5
+  fill(#FFC800);
+  rect(500,0,100,100,0,20,20,20);
+  fill(0);
+  textSize(10);
+  text("Player 5",550,220);
+    
+    fill(0);
+    textSize(15);
+    text("Press A,S,D,F,G to move and press ENTER to finish the selection", 300,590);
+   
+    seleccion();
+    
+       if(jugador2 != 0)
+            p = 2;
+    }
+    //--------------------------------------------------------------------------------------------------------------
+      void pan3(){
+        AsignarPoder();
+    //aigre <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    fill(#0DB0FF);
+    rect(0, 0, width, height);
+     fill(255);
+   //pisuu<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    fill(#52E6FF);
+    rect(0, 200, width,200);
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    // batalla
+         batalla();
+         instrucciones();
+         MostrarVida();
+         
+      if(VidaJ1 <= 0 || VidaJ2 <=0)
+        p++;
+      }
+      //----------------------------------------------------------------------------------------------------------
+      void pan4(){
+      //the end
+       background(#03F9FF);
+       if(VidaJ1>0){
+         textSize(30);
+    text("Player 1",300,100);  
+       }
+         textSize(30);
+        if(VidaJ2>0){
+    text("Player 2",300,100);
+    
+       }
+       
+       
+       
+       fill(0);
+        textSize(60);
+    textAlign(CENTER);
+    text("YOU WIN",300,200);  
+     textSize(20);
+    textAlign(CENTER);
+       text("PRESS 2 TO REPEAT",300,300);
+       
+      if(keyPressed)
+        if(key=='2')
+        {
+       jugador1 = 0;
+       jugador2 = 0;
+       seleccion = 1;
+       VidaJ1 = 100;
+       VidaJ2 = 100;
+       turno = 1;
+       turnoSe = 1;
+       p=0;
+        }
+      
+         }
+      
+      
+      //----------------------------------------------------------------------------------------------------------
+      void seleccion(){//CREACION
+        //PLAYER 1
+        if(seleccion == 1)
+        {
+          noFill();
+          if(turnoSe == 1)
+            stroke(100, 0, 0, 250);
+          if(turnoSe == 2)
+            stroke(0, 0, 100, 250);
+          
+          strokeWeight(5);
+          rect(CENTER,CENTER,100,100,0,20,0,0);
+          noStroke();
+        }
+        //PLAYER 2
+        if(seleccion == 2)
+        {
+          noFill();
+          if(turnoSe == 1)
+            stroke(100, 0, 0, 250);
+          if(turnoSe == 2)
+            stroke(0, 0, 100, 250);
+          
+          strokeWeight(5);
+          rect(0,200,100,100,0,20,20,0);
+          noStroke();
+        }
+        //PLAYER 3
+        if(seleccion == 3)
+        {
+          noFill();
+          if(turnoSe == 1)
+            stroke(100, 0, 0, 250);
+          if(turnoSe == 2)
+            stroke(0, 0, 100, 250);
+          
+          strokeWeight(5);
+          rect(500,0,100,100,0,20,20,20);
+          noStroke();
+        }
+        //PLAYER 4
+        if(seleccion == 4)
+        {
+          noFill();
+          if(turnoSe == 1)
+            stroke(100, 0, 0, 250);
+          if(turnoSe == 2)
+            stroke(0, 0, 100, 250);
+          
+          strokeWeight(5);
+          rect(500,200,100,100,20,20,20,20);
+          noStroke();
+        }
+        //PLAYER 5
+        if(seleccion == 5)
+        {
+          noFill();
+          if(turnoSe == 1)
+            stroke(100, 0, 0, 250);
+          if(turnoSe == 2)
+            stroke(0, 0, 100, 250);
+          
+          strokeWeight(5);
+          rect(250,100,100,100);
+          noStroke();
+        }
+        
+        if(keyPressed)
+        {
+          if(key == 'a')
+            seleccion = 1;
+          
+          if(key == 's')
+            seleccion = 2;
+            
+          if(key == 'd')
+            seleccion = 3;
+            
+           if(key == 'f')
+            seleccion = 4;
+            
+           if(key == 'g')
+            seleccion = 5;
+      
+            
+           if(key == ENTER)
+           {
+             if(turnoSe == 1)
+               jugador1 = seleccion;
+               
+             if(turnoSe == 2)
+               jugador2 = seleccion;   
+           }
+        }    
+         
+        //print(jugador1,jugador2,"  ");
+      }
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      void batalla(){
+        
+        if(jugador1 == 1)
+        {
+          push();
+          translate(0,100);
+                 fill(#19E000);
+                  rect(0,200,100,100,0,20,20,0);
+                  fill(0);
+                  textSize(10);
+                  text("Player 1",500,120);
+                 
+           pop();
+           
+        }
+        
+        if(jugador1 == 2)
+        {
+          push();
+          translate(0,-100);
+                     fill(#F000D4);
+                      rect(0,200,100,100,0,20,20,0);
+                      fill(0);
+                      textSize(10);
+                      text("Player 2",500,120);
+  
+                    
+           pop();
+        }
+        if(jugador1 == 3){
+          push();
+          translate(-500,100);
+               fill(#D60000);
+                rect(500,0,100,100,0,20,20,20);
+                fill(80);
+                textSize(10);
+                text("Player 3",550,120);
+              
+          pop();
+        }
+        if(jugador1 == 4){
+          push();
+          translate(-500,-100);
+                    fill(#006CFF);
+                    rect(500,200,100,100,20,20,20,20);
+                    fill(0);
+                    textSize(10);
+                    text("Player 4",550,120);
+                    
+           pop();
+        }
+        if(jugador1 == 5){ 
+          push();
+          translate(-250,0);
+                fill(#FFC800);
+                rect(500,0,100,100,0,20,20,20);
+                fill(0);
+                textSize(10);
+                text("Player 5",550,120);
+                
+           pop();
+        }
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        if(jugador2 == 1)
+        {
+          push();
+          translate(500,100);
+          fill(#07F02B);
+                rect(CENTER,CENTER,100,100,0,20,0,0);
+                fill(0);
+                rect(CENTER,-CENTER,100,50,0,20,0,0);
+                fill(0);
+                textSize(12);
+                text("PLAYER 1",50,120);
+                 
+        pop();
+        }
+        if(jugador2 == 2){
+          push();
+          translate(500,-100);
+              fill(#F0E807);
+              rect(0,200,100,100,0,20,20,0);
+              fill(0);
+              textSize(12);
+              text("PLAYER 2",50,170);
+              
+          pop();
+        }
+        
+        if(jugador2 == 3){
+          push();
+          translate(0,100);
+              fill(#F03607);
+              rect(500,0,100,100,0,20,20,20);
+              fill(0);
+              textSize(12);
+              text("PLAYER 3",550,120);
+              
+          pop();
+        }
+        
+        if(jugador2 == 4){
+          push();
+          translate(0,-100);
+           fill(#DF07F0);
+           rect(500,200,100,100,20,20,20,20);
+           fill(0);
+           textSize(12);
+           text("PLAYER 4",550, 170);
+            
+            
+          pop();
+        }
+        
+        if(jugador2 == 5){ 
+          push();
+          translate(250,0);
+              fill(#0054BF);
+              rect(250,100,100,100);
+               fill(0);
+              textSize(12);
+              text("PLAYER 5",300,220);
+              
+            
+          pop();
+        }
+        
+        
+        
+      }
+      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      void instrucciones(){
+        fill(0);
+        textSize(20);
+        textAlign(CENTER);
+        text("FIGHT",300,50);
+        
+        fill(0);
+        textSize(15);
+        text("Press 'Z' to atack",100,250);
+        
+        text("Press 'N' to atack",500,250);
+      }
+      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      void MostrarVida(){
+        
+        //VIDA Jugador1    
+        fill(0,0,255);
+        rect(120, 125, VidaJ1, 20); 
+        
+         //Vida JUGADOR 2
+        rect(380, 125, VidaJ2, 20);
+        
+        if(keyPressed)
+        {
+          if(turno == 1)
+            {
+              if (key == 'z')
+              {
+                VidaJ2 = VidaJ2 - AJ1;
+                turno = 2;
+              }
+  
+              if (key == 'x')
+              {
+                VidaJ2 = VidaJ2 - HJ1;
+                turno = 2;  
+              }
+            }
+         if(turno == 2)
+           {
+              if (key == 'n')
+              {
+                VidaJ1 = VidaJ1 - AJ2;
+                turno = 1;
+              }
+                
+              if (key == 'm')
+              {
+                VidaJ1 = VidaJ1 - HJ2;
+                turno = 1;
+              }
+           }
+        }
+      }
+      
+      void AsignarPoder(){
+        
+        switch(jugador1){
+          case 1:
+          AJ1 =  6;
+          HJ1 = 5;
+          break;
+          
+          case 2:
+          AJ1 =  8;
+          HJ1 = 5;
+          break;
+          
+          case 3:
+          AJ1 = 5 ;
+          HJ1 = 6;
+          break;
+          
+          case 4:
+          AJ1 =  5;
+          HJ1 = 6;
+          break;
+          
+          case 5:
+          AJ1 =  9;
+          HJ1 = 4;
+          break;
+        }
+        
+        switch(jugador2){
+          case 1:
+          AJ2 =  6;
+          HJ2 = 5;
+          break;
+          
+          case 2:
+          AJ2 =  8;
+          HJ2 = 5;
+          break;
+          
+          case 3:
+          AJ2 =  5;
+          HJ2 = 6;
+          break;
+          
+          case 4:
+          AJ2 =  5;
+          HJ2 = 6;
+          break;
+          
+          case 5:
+          AJ2 =  9;
+          HJ2 = 4;
+          break;
+        }          
+      }
+      
+    
+  }
